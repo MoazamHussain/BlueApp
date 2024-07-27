@@ -10,7 +10,9 @@ import com.example.neoapplication.ui.base.UiState
 import com.example.neoapplication.utils.NetworkUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -34,6 +36,52 @@ class MainScreenViewModel @Inject constructor(private val mainScreenRepository: 
     val uiStatePilatesData: SharedFlow<UiState<PilatesData>> =
         _uiStatePilatesData
 
+    //for compose
+    private val _uiStateYogaDataCompose = MutableStateFlow<YogaData>(YogaData())
+    val uiStateYogaDataCompose: StateFlow<YogaData> = _uiStateYogaDataCompose
+
+    private val _uiStatePilatesDataCompose = MutableStateFlow<PilatesData>(PilatesData())
+    val uiStatePilatesDataCompose: StateFlow<PilatesData> = _uiStatePilatesDataCompose
+
+    var searchtext = ""
+    fun getYogaDataCompose() {
+        if (networkUtils.isNetworkAvailable()) {
+            viewModelScope.launch {
+
+                mainScreenRepository.getYogaData().catch {
+
+                }.collect {
+                    _uiStateYogaDataCompose.emit(it)
+                }
+            }
+        }
+        else
+        {
+            Log.e("DATAAPI", "Error collecting yoga: ")
+        }
+    }
+
+    fun getPilatesDataCompose() {
+        if (networkUtils.isNetworkAvailable()) {
+            viewModelScope.launch {
+
+                mainScreenRepository.getPilatesData().catch {
+                }.collect {
+                    _uiStatePilatesDataCompose.emit(it)
+                }
+            }
+        }
+        else
+        {
+            Log.e("DATAAPI", "Error collecting pilates: ")
+        }
+    }
+
+    fun onSearchTextChanged(searchText: String) {
+        searchtext = searchText
+    }
+
+    ////////compose end
 
     fun getYogaData() {
         if (networkUtils.isNetworkAvailable()) {

@@ -5,6 +5,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
     id ("androidx.navigation.safeargs.kotlin")
+    kotlin("plugin.serialization") version "1.9.24"
 }
 
 android {
@@ -163,5 +164,9 @@ dependencies {
     //moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation("com.google.accompanist:accompanist-pager:0.24.6-alpha")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.24.6-alpha")
 
 }
