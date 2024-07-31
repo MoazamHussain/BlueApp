@@ -1,6 +1,8 @@
-package com.example.neoapplication.ui.theme
+package com.example.neoapplication.presentation.theme
 
-import androidx.compose.material3.*
+
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
@@ -24,7 +26,7 @@ fun TemplateKotlinMVVMArchitectureTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = com.example.neoapplication.presentation.theme.Typography, // Use default Typography or customize
+        typography = Typography, // Use default Typography or customize
         content = content
     )
 }

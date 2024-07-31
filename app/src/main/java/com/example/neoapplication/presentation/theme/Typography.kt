@@ -1,4 +1,4 @@
-package com.example.neoapplication.ui.theme
+package com.example.neoapplication.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -18,32 +18,32 @@ val rubikFontFamily = FontFamily(
 val Typography = Typography(
     // Define default text styles
     bodyLarge = TextStyle(
-        fontFamily = com.example.neoapplication.presentation.theme.rubikFontFamily,
+        fontFamily = rubikFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     ),
     bodyMedium = TextStyle(
-        fontFamily = com.example.neoapplication.presentation.theme.rubikFontFamily,
+        fontFamily = rubikFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp
     ),
     bodySmall = TextStyle(
-        fontFamily = com.example.neoapplication.presentation.theme.rubikFontFamily,
+        fontFamily = rubikFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
     ),
     headlineLarge = TextStyle(
-        fontFamily = com.example.neoapplication.presentation.theme.rubikFontFamily,
+        fontFamily = rubikFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp
     ),
     headlineMedium = TextStyle(
-        fontFamily = com.example.neoapplication.presentation.theme.rubikFontFamily,
+        fontFamily = rubikFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp
     ),
     headlineSmall = TextStyle(
-        fontFamily = com.example.neoapplication.presentation.theme.rubikFontFamily,
+        fontFamily = rubikFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp
     ),

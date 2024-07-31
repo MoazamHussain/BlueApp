@@ -1,8 +1,12 @@
 package com.example.neoapplication.di.module
 
-import com.app.pennyplan.di.BaseUrl
+import com.example.neoapplication.di.BaseUrl
+import com.example.neoapplication.common.Constants
 import com.example.neoapplication.data.api.NetworkService
+import com.example.neoapplication.data.remote.FitnessApi
+import com.example.neoapplication.data.repository.FitnessRepositoryImpl
 import com.example.neoapplication.data.repository.MainScreenRepository
+import com.example.neoapplication.domain.repository.FitnessRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +21,24 @@ import javax.inject.Singleton
 @Module
 object ApplicationModule {
 
+    //for mvvm clean architecture
+    @Provides
+    @Singleton
+    fun provideFitnessApi(): FitnessApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(FitnessApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoinRepository(api: FitnessApi): FitnessRepository {
+        return FitnessRepositoryImpl(api)
+    }
+
+    //for mvvm hilt
     @BaseUrl
     @Provides
     fun provideBaseUrl(): String {
@@ -37,11 +59,6 @@ object ApplicationModule {
             .create(NetworkService::class.java)
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideGsonConvertedFactory(): GsonConverterFactory {
-//        return GsonConverterFactory.create()
-//    }
 
     @Singleton
     @Provides
@@ -64,35 +81,13 @@ object ApplicationModule {
             .build()
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideOkHttpClient(
-//    ): OkHttpClient {
-//        val okHttpClient = OkHttpClient().newBuilder()
-//        return okHttpClient.build()
-//    }
+
 
     @Singleton
     @Provides
     fun provideMainScreenRepository(networkUtils: NetworkService): MainScreenRepository {
         return MainScreenRepository(networkUtils)
     }
-
-//    @Provides
-//    @Singleton
-//    fun provideSessionManager(@ApplicationContext context: Context) = SessionManger(context)
-
-//    @Singleton
-//    @Provides
-//    fun provideLocalDatabase(
-//        @DatabaseName databaseName: String,
-//        @ApplicationContext context: Context
-//    ): MainAppDatabase {
-//        return Room.databaseBuilder(
-//            context, MainAppDatabase::class.java, databaseName
-//        ).build()
-//    }
-
 
 
 

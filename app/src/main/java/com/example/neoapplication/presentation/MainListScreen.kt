@@ -1,18 +1,14 @@
-package com.example.neoapplication.composeScreens
+package com.example.neoapplication.presentation
 
-import android.widget.Toast
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -25,11 +21,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -38,24 +30,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,32 +53,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
 import com.example.neoapplication.R
-import com.example.neoapplication.mainScreen.model.PilatesItems
-import com.example.neoapplication.mainScreen.model.YogaItems
-import com.example.neoapplication.mainScreen.viewmodel.MainScreenViewModel
+import com.example.neoapplication.data.remote.dto.PilatesItems
+import com.example.neoapplication.data.remote.dto.YogaItems
+import com.example.neoapplication.presentation.pilates_list.PilatesListViewModel
+import com.example.neoapplication.presentation.pilates_list.components.HorizontalItemListPilates
+import com.example.neoapplication.presentation.pilates_list.components.PilatesItemView
+import com.example.neoapplication.presentation.yoga_list.YogaListViewModel
+import com.example.neoapplication.presentation.yoga_list.components.HorizontalItemListYoga
+import com.example.neoapplication.presentation.yoga_list.components.YogaItemView
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalFoundationApi::class,ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(mainScreenViewModel: MainScreenViewModel = hiltViewModel()) {
+fun MainListScreen(yogaListViewModel: YogaListViewModel = hiltViewModel(),
+                   pilatesListViewModel: PilatesListViewModel = hiltViewModel()) {
     // State to handle ViewPager visibility
     var isViewPagerVisible by remember { mutableStateOf(true) }
 
-    val yogaData by mainScreenViewModel.uiStateYogaDataCompose.collectAsState()
-    val pilatesData by mainScreenViewModel.uiStatePilatesDataCompose.collectAsState()
+    val stateYoga = yogaListViewModel.state.value
+    val statePilates = pilatesListViewModel.state.value
+
+
+    Log.e("valsLen","${stateYoga.list.YOGA.size} - ${statePilates.list.PILATES.size}")
+
     var currentPage by remember { mutableStateOf(0) }
     val searchQuery = remember { mutableStateOf("") }
 
@@ -126,50 +117,46 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = hiltViewModel()) {
 
     val pagerState = rememberPagerState(pageCount = { dataList.size })
 
+
     LaunchedEffect(key1 = showBottomSheet) {
         if (showBottomSheet) {
             if(currentPage > 0)
             {
-                bottomSheetItemsP.value = pilatesData.PILATES.take(3)
+                bottomSheetItemsP.value = statePilates.list.PILATES.take(3)
             }
             else
             {
-                bottomSheetItemsY.value = yogaData.YOGA.take(3)
+                bottomSheetItemsY.value = stateYoga.list.YOGA.take(3)
             }
         }
     }
 
     // Filtered list based on search query
-    val filteredYogaData by remember(searchQuery.value) {
+    val filteredYogaData by remember(searchQuery.value,stateYoga.list) {
         derivedStateOf {
             if (searchQuery.value.isBlank()) {
-                yogaData.YOGA
+                stateYoga.list.YOGA
             } else {
-                yogaData.YOGA.filter { it.YName!!.contains(searchQuery.value, ignoreCase = true) }
+                stateYoga.list.YOGA.filter { it.YName!!.contains(searchQuery.value, ignoreCase = true) }
             }
         }
     }
 
-    val filteredPilatesData by remember(searchQuery.value) {
+    val filteredPilatesData by remember(searchQuery.value,statePilates.list) {
         derivedStateOf {
             if (searchQuery.value.isBlank()) {
-                pilatesData.PILATES
+                statePilates.list.PILATES
             } else {
-                pilatesData.PILATES.filter { it.PName!!.contains(searchQuery.value, ignoreCase = true) }
+                statePilates.list.PILATES.filter { it.PName!!.contains(searchQuery.value, ignoreCase = true) }
             }
         }
-    }
-
-    LaunchedEffect(Unit) {
-        mainScreenViewModel.getYogaDataCompose()
-        mainScreenViewModel.getPilatesDataCompose()
     }
 
     // Layout
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(5.dp)
+            .padding(10.dp)
             .background(Color.White)
     ) {
         if (showSlider) {
@@ -183,7 +170,7 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = hiltViewModel()) {
                     onPageChange = { page ->
                         currentPage = page
                     },
-                    mainScreenViewModel
+                    currentPage
                 )
             }
 
@@ -201,32 +188,86 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = hiltViewModel()) {
                 .background(Color.White)
         ) {
 
-
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
-        ) {
-            when (currentPage) {
-                0 -> {
-                    yogaData.let {
-                        items(filteredYogaData.size) { item ->
-                            YogaItemView(filteredYogaData[item])
-                        }
+            if(currentPage > 0)
+            {
+                when
+                {
+                    statePilates.error.isNotBlank()-> {
+                        Text(
+                            text = statePilates.error,
+                            color = Color.Red,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp)
+                                .align(Alignment.Center)
+                        )
                     }
+                    statePilates.isLoading -> {
+                        androidx.compose.material3.CircularProgressIndicator(
+                            modifier = androidx.compose.ui.Modifier.align(
+                                androidx.compose.ui.Alignment.Center
+                            )
+                        )
+                    }
+                    else ->{
+                        Log.e("valsLen","p - ${filteredPilatesData.size}")
+                        LazyColumn(
+                            state = listState,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(8.dp)
+                        ) {
+                            items(filteredPilatesData.size) { item ->
+                                PilatesItemView(filteredPilatesData[item])
+                            }
+                        }
 
+                    }
                 }
 
-                1 -> {
-                    pilatesData.let {
-                        items(filteredPilatesData.size) { item ->
-                            PilatesItemView(filteredPilatesData[item])
-                        }
-                    }
-                }
             }
-        }
+            else
+            {
+                when
+                {
+                    stateYoga.error.isNotBlank() -> {
+                        Text(
+                            text = stateYoga.error,
+                            color = Color.Red,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp)
+                                .align(Alignment.Center)
+                        )
+                    }
+                    stateYoga.isLoading -> {
+                        androidx.compose.material3.CircularProgressIndicator(
+                            modifier = androidx.compose.ui.Modifier.align(
+                                androidx.compose.ui.Alignment.Center
+                            )
+                        )
+                    }
+                    else ->{
+                        Log.e("valsLen","y - ${filteredYogaData.size}")
+                        LazyColumn(
+                            state = listState,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(8.dp)
+                        ) {
+                            items(filteredYogaData.size) { item ->
+                                YogaItemView(filteredYogaData[item])
+                            }
+                        }
+
+                    }
+                }
+
+            }
+
+
 
 
         FloatingActionButton(
@@ -248,7 +289,7 @@ fun MainScreen(mainScreenViewModel: MainScreenViewModel = hiltViewModel()) {
         {
             BottomSheetContent(onClose = { showBottomSheet = false },
                 sheetState,bottomSheetItemsY.value,bottomSheetItemsP.value, currentPage,
-                yogaData.YOGA.size,pilatesData.PILATES.size)
+                stateYoga.list.YOGA.size,statePilates.list.PILATES.size)
         }
     }
 
@@ -294,21 +335,14 @@ fun SearchToolbar(onSearchTextChanged: (String) -> Unit) {
 @Composable
 fun ImageSlider(dataList: List<String>,
                 onPageChange: (Int) -> Unit,
-                mainScreenViewModel: MainScreenViewModel = hiltViewModel()) {
-    val pagerState = rememberPagerState(pageCount = {dataList.size})
-    val context = LocalContext.current
+                currentPage: Int,
+                yogaListViewModel: YogaListViewModel = hiltViewModel(),
+                pilatesListViewModel: PilatesListViewModel = hiltViewModel()) {
+    val pagerState = rememberPagerState(pageCount = {dataList.size},initialPage = currentPage)
 
     // LaunchedEffect to show a toast when the page changes
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }.collectLatest { page ->
-            if(page > 0)
-            {
-                mainScreenViewModel.getPilatesDataCompose()
-            }
-            else
-            {
-                mainScreenViewModel.getYogaDataCompose()
-            }
             onPageChange(page)
         }
     }
@@ -349,8 +383,8 @@ fun PagerIndicator(
     modifier: Modifier = Modifier,
     pagesSize: Int,
     selectedPage: Int,
-    selectedColor: Color = colorResource(id = R.color.darkgreen),
-    unselectedColor: Color = Color.White,
+    selectedColor: Color = colorResource(id = R.color.blue),
+    unselectedColor: Color = Color.LightGray,
 ) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
         repeat(times = pagesSize) { page ->
@@ -362,7 +396,7 @@ fun PagerIndicator(
                     .background(color = if (page == selectedPage) selectedColor else unselectedColor)
                     .border(
                         width = 1.dp,
-                        color = colorResource(id = R.color.darkgreen),
+                        color = colorResource(id = R.color.white),
                         shape = CircleShape
                     )
             )
@@ -370,101 +404,6 @@ fun PagerIndicator(
     }
 }
 
-
-@Composable
-fun YogaItemView(yogaItem: YogaItems) {
-    // Display the card view with image and text
-    Card(
-        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.lightgreen)),
-        shape = RoundedCornerShape(20.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 5.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Image section
-            AsyncImage(
-                model = yogaItem.YImg,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(Color.Gray)
-            )
-
-            Spacer(modifier = Modifier.width(10.dp))
-
-            // Text section
-            Column {
-                Text(
-                    text = yogaItem.YId.toString() ?: "No Name",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = Color.Black
-                )
-                // Subtitle
-                Text(
-                    text = yogaItem.YName ?:"Subtitle here", // Replace with actual subtitle if available
-                    style = MaterialTheme.typography.titleSmall,
-                    color = Color.Gray
-                )
-            }
-        }
-    }
-}
-
-
-@Composable
-fun PilatesItemView(pilatesItem: PilatesItems) {
-    // Display the card view with image and text
-    Card(
-        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.lightgreen)),
-        shape = RoundedCornerShape(20.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 5.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Image section
-            AsyncImage(
-                model = pilatesItem.PImg,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(Color.Gray)
-            )
-
-            Spacer(modifier = Modifier.width(10.dp))
-
-            // Text section
-            Column {
-                Text(
-                    text = pilatesItem.PId.toString() ?: "No Name",
-                    style = MaterialTheme.typography.titleSmall,
-                    color = Color.Black
-                )
-                // Subtitle
-                Text(
-                    text = pilatesItem.PName ?: "Subtitle here", // Replace with actual subtitle if available
-                    style = MaterialTheme.typography.titleSmall,
-                    color = Color.Gray
-                )
-            }
-        }
-    }
-}
 
 
 @OptIn(ExperimentalFoundationApi::class,ExperimentalMaterial3Api::class)
@@ -481,7 +420,7 @@ fun BottomSheetContent(onClose: () -> Unit,sheetState : SheetState,
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 30.dp)
         ) {
             // Close button
             IconButton(onClick = onClose,
@@ -500,13 +439,15 @@ fun BottomSheetContent(onClose: () -> Unit,sheetState : SheetState,
             {
                 HorizontalItemListPilates(dataP)
                 Spacer(modifier = Modifier.height(5.dp))
-                Text(text = "+ ${pSize} more activities", modifier = Modifier.align(Alignment.End))
+                Text(text = "+ ${pSize} more activities", modifier = Modifier.align(Alignment.End),
+                    fontSize = 12.sp)
             }
             else
             {
                 HorizontalItemListYoga(dataY)
                 Spacer(modifier = Modifier.height(5.dp))
-                Text(text = "+ ${ySize} more activities", modifier = Modifier.align(Alignment.End))
+                Text(text = "+ ${ySize} more activities", modifier = Modifier.align(Alignment.End),
+                    fontSize = 12.sp)
             }
             Spacer(modifier = Modifier.height(8.dp))
         }
@@ -515,103 +456,8 @@ fun BottomSheetContent(onClose: () -> Unit,sheetState : SheetState,
 }
 
 
-@Composable
-fun ItemViewYoga(yogaItem: YogaItems) {
-    Card(
-        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.lightgreen)),
-        modifier = Modifier
-            .padding(end = 8.dp)
-            .wrapContentWidth().height(110.dp),
-        shape = RoundedCornerShape(20.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxSize()
-        ) {
-            Image(
-                painter = rememberAsyncImagePainter(model = yogaItem.YImg),
-                contentDescription = yogaItem.YName,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(RoundedCornerShape(10.dp))
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Column {
-                Text(
-                    text = yogaItem.YId.toString() ?: "",
-                    style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                )
-                Text(
-                    text = yogaItem.YName ?: "",
-                    style = TextStyle(fontSize = 12.sp, color = Color.Gray)
-                )
-            }
-        }
-    }
-}
 
-@Composable
-fun ItemViewPilates(pilatesItem: PilatesItems) {
-    Card(
-        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.lightgreen)),
-        modifier = Modifier
-            .padding(end = 8.dp)
-            .wrapContentWidth().height(110.dp),
-        shape = RoundedCornerShape(20.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxSize()
-        ) {
-            Image(
-                painter = rememberAsyncImagePainter(model = pilatesItem.PImg),
-                contentDescription = pilatesItem.PName,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(RoundedCornerShape(10.dp))
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Column {
-                Text(
-                    text = pilatesItem.PId.toString() ?: "",
-                    style = TextStyle(fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                )
-                Text(
-                    text = pilatesItem.PName ?: "",
-                    style = TextStyle(fontSize = 12.sp, color = Color.Gray)
-                )
-            }
-        }
-    }
-}
 
-@Composable
-fun HorizontalItemListYoga(yogaItems: List<YogaItems>) {
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(6.dp)
-    ) {
-        items(yogaItems.size) { item ->
-            ItemViewYoga(yogaItem = yogaItems[item])
-        }
-    }
-}
 
-@Composable
-fun HorizontalItemListPilates(pilatesItems: List<PilatesItems>) {
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        items(pilatesItems.size) { item ->
-            ItemViewPilates(pilatesItem = pilatesItems[item])
-        }
-    }
-}
+
 

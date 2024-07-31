@@ -1,4 +1,4 @@
-package com.app.pennyplan.di
+package com.example.neoapplication.di
 
 import javax.inject.Qualifier
 
