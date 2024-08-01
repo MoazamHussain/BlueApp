@@ -19,10 +19,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.NeoApplication"
         tools:targetApi="31">
-        <activity
-            android:name=".mainScreen.activity.MainScreenActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivityXML"
             android:screenOrientation="portrait"
@@ -41,11 +38,7 @@
 
         </activity>
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="false">
 
-        </activity>
     </application>
 
 </manifest>

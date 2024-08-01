@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.neoapplication.R
-import com.example.neoapplication.mainScreen.viewmodel.MainScreenViewModel
+
 import com.example.neoapplication.presentation.theme.TemplateKotlinMVVMArchitectureTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dagger.hilt.android.AndroidEntryPoint
