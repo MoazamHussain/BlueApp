@@ -12,11 +12,11 @@ This is a sample Android project that demonstrates the use of fetching data from
 
 ## Screenshots
 
-!(assets/s1.jpg)
-!(assets/s2.jpg)
-!(assets/s3.jpg)
-!(assets/sb1.jpg)
-!(assets/sb2.jpg)
+![Screen 1](assets/s1.jpg)
+![Screen 2](assets/s2.jpg)
+![Screen 3](assets/s3.jpg)
+![Screen 4](assets/sb1.jpg)
+![Screen 5](assets/sb2.jpg)
 
 ## Installation
 
