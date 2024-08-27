@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.neoapplication"
+    namespace = "com.example.blueapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.neoapplication"
+        applicationId = "com.example.blueapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

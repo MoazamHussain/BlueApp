@@ -8,41 +8,31 @@
     android:orientation="vertical"
     android:padding="15dp">
 
-   <ImageView
+   <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:id="@+id/imgClose"
-       android:src="@drawable/baseline_close_24"
-       android:layout_gravity="end"
-       android:layout_marginBottom="15dp"
+       tools:text="Total items"
+       style="@style/rubik_regular_black_15"
+       android:padding="5dp"
+       android:id="@+id/txtTotal"
+       android:layout_marginBottom="10dp"
        />
 
    <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="Top 3 activities"
-       style="@style/rubik_medium_black_12"
+       android:text="Character occurences from top 3 items :"
+       style="@style/rubik_regular_black_15"
        android:padding="5dp"
+       android:id="@+id/txtTotalOccurences"
        android:layout_marginBottom="10dp"
        />
+
+
 
    <androidx.recyclerview.widget.RecyclerView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_gravity="center_horizontal"
-       android:id="@+id/recyclerHorizontal"
-       />
-
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       tools:text="Top 3 activities"
-       android:id="@+id/txtmore"
-       style="@style/rubik_medium_darkgreen_12"
-       android:padding="5dp"
-       android:layout_marginTop="10dp"
-       android:layout_gravity="end"
-       android:layout_marginBottom="10dp"
-       />
+       android:id="@+id/recyclerList"/>
 
 </LinearLayout>

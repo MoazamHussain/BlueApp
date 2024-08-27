@@ -17,10 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.NeoApplication"
+        android:theme="@style/Theme.BlueApp"
         tools:targetApi="31">
         <activity
-            android:name=".mainScreen.activity.MainScreenActivity"
+            android:name=".presentation.mainScreen.activity.MainScreenActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

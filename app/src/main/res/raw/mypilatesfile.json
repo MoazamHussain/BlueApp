@@ -1,0 +1,75 @@
+{
+	"PILATES":	[
+    	{
+         "P_id": 1,
+         "P_name": "Back Extension",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937077-d52c5980-ed0e-11ea-87ef-e6a5874658c3.png"
+	},
+
+	{
+         "P_id": 2,
+         "P_name": "Back Control",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937149-f9883600-ed0e-11ea-9fac-2f49648f26be.png"
+	},
+         
+	{
+         "P_id": 3,
+         "P_name": "Bicycle",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937215-16246e00-ed0f-11ea-8e8a-7c13ca327cf0.png"
+	},
+
+	{
+         "P_id": 4,
+         "P_name": "Boomerang",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937291-38b68700-ed0f-11ea-9967-5d845d147af8.png"
+	},
+
+	{
+         "P_id": 5,
+         "P_name": "Breathing",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937348-54219200-ed0f-11ea-8508-cf04bd25e469.png"
+	},
+
+	{
+         "P_id": 6,
+         "P_name": "Cervical Nod",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937400-76b3ab00-ed0f-11ea-9b26-99d49434bb91.png"
+	},
+
+	{
+         "P_id": 7,
+         "P_name": "Backstroke",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937462-91861f80-ed0f-11ea-862b-9f5bf94d86bb.png"
+	},
+
+	{
+         "P_id": 8,
+         "P_name": "Chest Expansion",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937496-acf12a80-ed0f-11ea-94f3-6e843295ed9e.png"
+	},
+
+	{
+         "P_id": 9,
+         "P_name": "Coordination",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937551-ca25f900-ed0f-11ea-8758-f0d360ce83fd.png"
+	},
+
+	{
+         "P_id": 10,
+         "P_name": "Down Stretch",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937601-e3c74080-ed0f-11ea-944c-d21b00320cb2.png"
+	},
+
+	{
+         "P_id": 11,
+         "P_name": "Footwork",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937648-fe011e80-ed0f-11ea-8b4f-d8dd9ff52900.png"
+	},
+
+	{
+         "P_id": 12,
+         "P_name": "Hundred",
+	 "P_img": "https://user-images.githubusercontent.com/70376703/91937691-1709cf80-ed10-11ea-8bc0-db20d86e3e29.png"
+	}  
+	]
+}

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="25dp"
-    tools:context=".mainScreen.activity.MainScreenActivity">
+    android:background="@color/white"
+    tools:context=".presentation.mainScreen.activity.MainScreenActivity">
 
     <LinearLayout
         android:id="@+id/linearViewpager"
