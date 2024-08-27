@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.NeoApplication" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.BlueApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
 
 <!--         <item name="colorPrimary">@color/white</item>-->
@@ -8,7 +8,7 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="Theme.NeoApplication" parent="Base.Theme.NeoApplication" />
+    <style name="Theme.BlueApp" parent="Base.Theme.BlueApp" />
 
     <style name="rubik_medium_black_12" parent="android:Widget.TextView">
         <!-- Customize TextView attributes here -->

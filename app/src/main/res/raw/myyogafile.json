@@ -1,0 +1,124 @@
+{
+	"YOGA":	[
+    	{
+         "Y_id": 1,
+         "Y_name": "Katichakrasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929303-bb354b80-ecfb-11ea-868d-6a4747838aa9.png"
+	},
+
+	{
+         "Y_id": 2,
+         "Y_name": "Bhujangasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929666-87a6f100-ecfc-11ea-9ce9-4061e7e7bd32.png"
+	},
+         
+	{
+         "Y_id": 3,
+         "Y_name": "Kurmasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929744-b624cc00-ecfc-11ea-98c2-13b9f90f0fb4.png"
+	},
+
+	{
+         "Y_id": 4,
+         "Y_name": "Setu Bandha Sarvanga",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929786-ca68c900-ecfc-11ea-9e23-686cdfa20744.png"
+	},
+
+	{
+         "Y_id": 5,
+         "Y_name": "Matsyasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929799-db193f00-ecfc-11ea-8034-51a6106267e5.png"
+	},
+
+	{
+         "Y_id": 6,
+         "Y_name": "Adho Mukha Svanasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929841-ef5d3c00-ecfc-11ea-987e-d10001e970d9.png"
+	},
+
+	{
+         "Y_id": 7,
+         "Y_name": "Pada Rajakapotasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929877-000db200-ecfd-11ea-9c20-35fbb9d56731.png"
+	},
+
+	{
+         "Y_id": 8,
+         "Y_name": "Balasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929908-19aef980-ecfd-11ea-9ba4-852a1a4f9500.png"
+	},
+
+	{
+         "Y_id": 9,
+         "Y_name": "Gomukhasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929936-29c6d900-ecfd-11ea-89e7-2c3734ce3c9f.png"
+	},
+
+	{
+         "Y_id": 10,
+         "Y_name": "Tadasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91929963-39462200-ecfd-11ea-8d21-f523b04a8bac.png"
+	},
+
+	{
+         "Y_id": 11,
+         "Y_name": "Pavanamuktasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91930004-567af080-ecfd-11ea-94ba-e80e724b5fd9.png"
+	},
+
+	{
+         "Y_id": 12,
+         "Y_name": "Ustrasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91930021-67c3fd00-ecfd-11ea-8e1f-6de5310ed1f2.png"
+	},
+
+	{
+         "Y_id": 13,
+         "Y_name": "Vayu Nishkasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91930045-7b6f6380-ecfd-11ea-9f4a-fbf15cdaed93.png"
+	},
+
+	{
+         "Y_id": 14,
+         "Y_name": "Trikonasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91931494-4238f280-ed01-11ea-80cd-0df82b200be4.png"
+	},
+
+	{
+         "Y_id": 15,
+         "Y_name": "Virabhadrasana 1",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91930090-9b068c00-ecfd-11ea-9462-5fd37882c12b.png"
+	},
+
+	{
+         "Y_id": 16,
+         "Y_name": "Virabhadrasana 2",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91930126-abb70200-ecfd-11ea-8e60-7f77ae3158a2.png"
+	},
+
+	{
+         "Y_id": 17,
+         "Y_name": "Sarvangasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91930158-ba051e00-ecfd-11ea-83a4-bff38fd20b6a.png"
+	},
+
+	{
+         "Y_id": 18,
+         "Y_name": "Sukhasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91930189-cc7f5780-ecfd-11ea-9653-121613d94a3c.png"
+	},
+
+	{
+         "Y_id": 19,
+         "Y_name": "Utthita Hasta Padang",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91930208-ddc86400-ecfd-11ea-8355-c4434354c433.png"
+	},
+
+	{
+         "Y_id": 20,
+         "Y_name": "Sasakasana",
+	 "Y_img": "https://user-images.githubusercontent.com/70376703/91930231-eb7de980-ecfd-11ea-8c17-034bbad7501b.png"
+	}
+          
+	]
+}
